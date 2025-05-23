@@ -16,9 +16,6 @@ Antes de comenzar, asegúrate de tener instalado:
 - **Redis** (para pruebas locales)
 - **Maven** (`mvn`) para construcción y pruebas
 
-docker run -p 8080:8080 -e SPRING_REDIS_HOST=host.docker.internal distributedcache:latest
-curl -X POST http://localhost:8080/cache/testKey -H "Content-Type: application/json" -d "\"testValue\""
-curl -X GET http://localhost:8080/cache/testKey
 ---
 
 ## Compilación con Maven
@@ -52,12 +49,6 @@ docker build -t distributedcache:latest .
 docker run -d -p 5000:5000 --name registry registry:2
 docker tag distributedcache:latest localhost:5000/distributedcache:latest
 docker push localhost:5000/distributedcache:latest
-```
-
-## Ejecución de contenedor Docker con Redis en localhost:6379
-
-```sh
-docker run -p 8080:8080 distributedcache:latest
 ```
 
 ## Ejecución de contenedor Docker con Redis como servicio externo en el mismo host de Docker
