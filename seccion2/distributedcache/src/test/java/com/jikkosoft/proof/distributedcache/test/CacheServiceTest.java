@@ -1,7 +1,8 @@
 package com.jikkosoft.proof.distributedcache.test;
 
 import com.jikkosoft.proof.distributedcache.repository.CacheRepository;
-import com.jikkosoft.proof.distributedcache.service.CacheServiceImpl;
+import com.jikkosoft.proof.distributedcache.service.impl.CacheServiceImpl;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,6 +12,12 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Clase de pruebas unitarias para {@link CacheServiceImpl}.
+ * 
+ * Valida el correcto funcionamiento de las operaciones de almacenamiento, recuperación,
+ * invalidación, expiración y actualización de valores en la caché distribuida.
+ */
 class CacheServiceTest {
 
     @Mock
@@ -19,12 +26,18 @@ class CacheServiceTest {
     @InjectMocks
     private CacheServiceImpl cacheService;
 
+    /**
+     * Inicializa los mocks antes de cada prueba.
+     */    
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         System.out.println("- Inicialización de pruebas unitarias.");
     }
 
+    /**
+     * Prueba el almacenamiento y recuperación de un valor en la caché.
+     */
     @Test
     void testStoreAndRetrieve() {
         String key = "testKey";
@@ -40,6 +53,9 @@ class CacheServiceTest {
         System.out.println("- Recuperación correcta.");
     }
 
+    /**
+     * Prueba la invalidación (eliminación) de una clave en la caché.
+     */
     @Test
     void testInvalidateKey() {
         String key = "deleteKey";
@@ -49,6 +65,9 @@ class CacheServiceTest {
         System.out.println("- Clave eliminada correctamente.");
     }
 
+    /**
+     * Prueba el almacenamiento de un valor con expiración y su posterior expiración.
+     */
     @Test
     void testStoreWithExpiration() throws InterruptedException {
         String key = "expiringKey";
@@ -66,6 +85,9 @@ class CacheServiceTest {
         System.out.println("- Expiración validada.");
     }
 
+    /**
+     * Prueba la sobrescritura de un valor previamente almacenado en la caché.
+     */
     @Test
     void testOverrideStoredValue() {
         String key = "overrideKey";
@@ -84,7 +106,10 @@ class CacheServiceTest {
         assertEquals(updatedValue, retrieved);
         System.out.println("- Valor después de la actualización: " + retrieved);
     }
-
+    
+    /**
+     * Prueba la recuperación de una clave inexistente en la caché.
+     */
     @Test
     void testRetrieveNonexistentKey() {
         String key = "missingKey";

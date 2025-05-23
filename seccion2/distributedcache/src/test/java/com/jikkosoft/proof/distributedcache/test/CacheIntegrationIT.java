@@ -10,6 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Pruebas de integración para validar la interacción real con Redis.
+ * 
+ * Verifica el almacenamiento, recuperación y expiración de valores en la caché distribuida usando Redis.
+ */
 @SpringBootTest
 class CacheIntegrationIT {
 
@@ -18,12 +23,18 @@ class CacheIntegrationIT {
 
     private final String testKey = "integrationKey";
 
+    /**
+     * Limpia la clave de prueba en Redis después de cada prueba.
+     */
     @AfterEach
     void cleanUp() {
         redisTemplate.delete(testKey);
         System.out.println("- Clave de integración eliminada.");
     }
 
+    /**
+     * Prueba el almacenamiento y recuperación de un valor en Redis.
+     */
     @Test
     void testStoreAndRetrieve() {
         String value = "Hello, Redis!";
@@ -35,7 +46,10 @@ class CacheIntegrationIT {
         assertEquals(value, retrieved);
         System.out.println("- Recuperación correcta.");
     }
-
+    
+    /**
+     * Prueba la expiración automática de un valor almacenado en Redis.
+     */
     @Test
     void testExpiration() throws InterruptedException {
         String value = "Temporary Data";
